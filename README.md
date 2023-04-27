@@ -13,6 +13,13 @@ will map the user name `foo@sub.example.org` to `loclfoo`, which will
 then be used in turn by the following PAM modules.
 
 
+Prerequirements
+---------------
+
+  apt install linux-libc-dev
+  apt install libpam0g-dev
+  apt install docbook-xsl
+  
 Installation
 ------------
 
