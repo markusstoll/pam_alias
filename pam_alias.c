@@ -22,7 +22,7 @@
 
 #include <sys/stat.h>
 
-#include <unistd.h>
+#include <linux/unistd.h>
 #include <stdio.h>
 #include <syslog.h>
 
