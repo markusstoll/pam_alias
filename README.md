@@ -19,6 +19,7 @@ Prerequirements
   apt install linux-libc-dev
   apt install libpam0g-dev
   apt install docbook-xsl
+  apt install xsltproc
   
 Installation
 ------------
