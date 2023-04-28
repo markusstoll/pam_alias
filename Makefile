@@ -31,4 +31,4 @@ pam_aliasdb.o: pam_aliasdb.c
 	xsltproc -o $@ --path . --xinclude --nonet /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl $<
 
 clean:
-	-rm -f ${SOLIBDB} ${MANDB} ${SOLIB} ${OBJS} ${MAN}
+	-rm -f ${SOLIBDB} ${MANDB} ${SOLIB} ${OBJS} ${MAN} *.o *~
