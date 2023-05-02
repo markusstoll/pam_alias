@@ -52,6 +52,7 @@ Author
 ------
 
 Copyright (c) 2012 Simon Schubert <2@0x2c.org>
+    
 Copyright (c) 2023 Markus Stoll <markus.stoll@junidas.de>
 
 pam_alias and pam_aliasdb are licensed under the GPL3 or later.
