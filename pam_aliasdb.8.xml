@@ -5,21 +5,21 @@
 <refentry id="pam_aliasdb">
 
   <refmeta>
-    <refentrytitle>pam_alias</refentrytitle>
+    <refentrytitle>pam_aliasdb</refentrytitle>
     <manvolnum>8</manvolnum>
     <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
   <refnamediv id="pam_aliasdb-name">
     <refname>pam_aliasdb</refname>
-    <refpurpose>map user names using an arbitrary file</refpurpose>
+    <refpurpose>map user names using a berkeley db file</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis id="pam_aliasdb-cmdsynopsis">
       <command>pam_aliasdb.so</command>
       <arg choice="plain">
-        db=<replaceable>/path/filename</replaceable>
+        db=<replaceable>/path/filename.db</replaceable>
       </arg>
       <arg choice="opt">
         nomatch=[fail|ignore]
@@ -36,15 +36,15 @@
 
     <para>
       pam_aliasdb is a PAM module which provides a way to map user names
-      using an arbitrary file.
+      using a berkeley db file.
     </para>
     <para>
       The module looks up the user name (PAM_USER) in the file
       specified by
-      <option>file=<replaceable>filename</replaceable></option>.
-      Every line in <filename>filename</filename> contains a pair of
-      user names, separated by whitespace; pam_aliasdb will map from the
-      first user name to the second.  The mapping is done by changing
+      <option>db=<replaceable>filename.db</replaceable></option>.
+      Every key in <filename>filename.db</filename> maps to a single user name; 
+      pam_aliasdb will map from the key to the value in this berkeley db.
+      The mapping is done by changing
       the PAM_USER item, which is then typically used by other PAM
       modules.
     </para>
@@ -62,7 +62,7 @@
     </para>
     <para>
       If a configuration error is encountered (for example, if
-      <filename>filename</filename> can not be opened, its access
+      <filename>filename.db</filename> can not be opened, its access
       permissions seem unsafe, or if invalid arguments are passed to
       pam_alias), then <emphasis>PAM_SERVICE_ERR</emphasis> will be
       returned.
@@ -80,12 +80,11 @@
 
         <varlistentry>
           <term>
-            <option>file=<replaceable>/path/filename</replaceable></option>
+            <option>db=<replaceable>/path/filename.db</replaceable></option>
           </term>
           <listitem>
             <para>
-              File containing a pair of user names per line, separated
-	      by whitespace.  The first name specifies the user name
+              Berkeley db file containing key value pairs. The key specifies the user name
 	      to be matched, the second name the user name will be
 	      replaced with.  The file may not be world writable.
             </para>
@@ -166,16 +165,16 @@
     <title>EXAMPLES</title>
     <para>
       pam_aliasdb was written for use in multidomain setups that intend
-      to use PAM as authentication provider.  Specifically, pam_alias
+      to use PAM as authentication provider.  Specifically, pam_aliasdb
       is used to map ejabberd jids to local unix users for
       authentication.
 
-      On top of <filename>/etc/pam.d/ejabberd</filename>:
+      On top of <filename>/etc/pam.d/ejabberd.db</filename>:
       <programlisting>
 #
 # map specific ejabberd jids to local users
 #
-auth    required       pam_aliasdb.so db=/etc/secure/jidmap
+auth    required       pam_aliasdb.so db=/etc/secure/jidmap.db
       </programlisting>
 
       <filename>/etc/secure/jidmap</filename>:
@@ -212,7 +211,7 @@ foo@sub.example.org    loclfoo
   <refsect1 id='pam_aliasdb-author'>
     <title>AUTHOR</title>
       <para>
-        pam_alias was written by Simon Schubert &lt;2@0x2c.org&gt;.
+        pam_aliasdb was written by Markus Stoll &lt;markus.stoll@junidas.de&gt;, based on the pam_alias module by Simon Schubert &lt;2@0x2c.org&gt;.
       </para>
   </refsect1>
 
